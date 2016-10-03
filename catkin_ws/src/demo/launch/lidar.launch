@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+ <launch>
+  <node pkg="claas_bridge_hokuyo" type="claas_bridge_hokuyo" name="claas_bridge_hokuyo" respawn="true">
+    <param name="scope_rsb" value="/lidar21"/>
+    <param name="topic_ros" value="/lidar"/>
+    <param name="frame" value="world"/>
+  </node>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find demo)/demo.rviz" respawn="true" />
+ </launch>

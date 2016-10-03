@@ -1,0 +1,13 @@
+# ninja log v5
+0	1714	0	CMakeFiles/twb_to_tf_bridge.dir/src/enum.pb.cc.o	53fd8aaf939aa062
+1	1811	0	CMakeFiles/twb_to_tf_bridge.dir/src/rotation.pb.cc.o	84f061a756a607cd
+1	1989	0	CMakeFiles/twb_to_tf_bridge.dir/src/shapes.pb.cc.o	75e145179ad910fb
+1	1998	0	CMakeFiles/twb_to_tf_bridge.dir/src/pose.pb.cc.o	380f51c744eecb2f
+0	2200	0	CMakeFiles/twb_to_tf_bridge.dir/src/loc.pb.cc.o	dc1d7860ea2758db
+1714	2549	0	CMakeFiles/twb_to_tf_bridge.dir/src/vertex.pb.cc.o	618ee06fe05ff17
+0	6368	0	CMakeFiles/twb_to_tf_bridge.dir/src/main.cpp.o	ecd11c9cded1df22
+6368	6566	0	devel/lib/twb_to_tf_bridge/twb_to_tf_bridge	cd8044e3076c59e0
+1	6159	0	CMakeFiles/twb_to_tf_bridge.dir/src/main.cpp.o	ecd11c9cded1df22
+6160	6327	0	devel/lib/twb_to_tf_bridge/twb_to_tf_bridge	cd8044e3076c59e0
+1	6037	0	CMakeFiles/twb_to_tf_bridge.dir/src/main.cpp.o	ecd11c9cded1df22
+6037	6189	0	devel/lib/twb_to_tf_bridge/twb_to_tf_bridge	cd8044e3076c59e0

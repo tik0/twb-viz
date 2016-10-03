@@ -1,0 +1,105 @@
+<?xml version="1.0"?>
+ <launch>
+
+<!--   <arg name="map_yaml" default="$(find maps)/maps/Leipzig_Arena_A.yaml" /> -->
+
+  <!-- publishes the map -->
+<!--   <node pkg="map_server" type="map_server" args="$(arg map_yaml)" name="map_server_node" respawn="true" /> -->
+
+  <!-- converts RSB poses to ROS transform -->
+    <node pkg="twb_to_tf_bridge" type="twb_to_tf_bridge" name="twb_to_tf_bridge" respawn="true" >
+      <param name="frame_id" value="world" />
+      <param name="child_frame_prefix" value="twb" />
+      <param name="child_frame_suffix" value="/base_link" />
+<!--       <param name="rsb_scope" value="/" /> -->
+      <param name="rate" value="10" />
+    </node>
+  
+  <node pkg="tf" type="static_transform_publisher" name="map_tf" args="0 0 0 0 0 0 world map 10" />
+
+  <!-- ROBOT MODELS: AMiRo0 at the entrance door -->
+  <!--<node pkg="tf" type="static_transform_publisher" name="amiro0_tf" args="12 12.5 0 1 0 0 world amiro0/base_link 10"/>-->
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/amiro.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="twb0" />
+  </include>
+
+  <!-- ROBOT MODELS: AMiRo1 at the hand-over point -->
+<!--   <node pkg="tf" type="static_transform_publisher" name="amiro1_tf" args="12 12 0 1 0 0 world twb12/base_link 10"/> -->
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/amiro.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="twb12" />
+  </include>
+  <node pkg="tf" type="static_transform_publisher" name="twb12lidar_tf" args="0 0 0.17 0 0 0 twb12/base_link twb12/lidar 10"/>
+  <node pkg="claas_bridge_hokuyo" type="claas_bridge_hokuyo" name="claas_bridge_hokuyo_12" respawn="true">
+    <param name="scope_rsb" value="/lidar12"/>
+    <param name="topic_ros" value="/lidar12"/>
+    <param name="use_param_angle" value="1"/>
+    <param name="angle_max_deg" value="120"/>
+    <param name="angle_min_deg" value="-120"/>
+    <param name="frame" value="twb12/lidar"/>
+  </node>
+
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/amiro.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="twb18" />
+  </include>
+  <node pkg="tf" type="static_transform_publisher" name="twb18lidar_tf" args="0 0 0.17 0 0 0 twb18/base_link twb18/lidar 10"/>
+  <node pkg="claas_bridge_hokuyo" type="claas_bridge_hokuyo" name="claas_bridge_hokuyo_18" respawn="true">
+    <param name="scope_rsb" value="/lidar18"/>
+    <param name="topic_ros" value="/lidar18"/>
+    <param name="use_param_angle" value="0"/>
+    <param name="angle_max_deg" value="120"/>
+    <param name="angle_min_deg" value="-120"/>
+    <param name="frame" value="twb18/lidar"/>
+  </node>
+
+  <!--TWB SETUP-->
+  <node pkg="tf" type="static_transform_publisher" name="twb_tf" args="0 0 0 0 0 0 world twb/base_link 10"/>
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/twb.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="twb" />
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="heater1_tf" args="2.85 0.495 0 1.57 0 0 world heater1/base_link 10"/>
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/heater.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="heater1" />
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="heater2_tf" args="2.85 1.845 0 1.57 0 0 world heater2/base_link 10"/>
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/heater.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="heater2" />
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="heater3_tf" args="2.85 -0.855 0 1.57 0 0 world heater3/base_link 10"/>
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/heater.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="heater3" />
+  </include>
+
+  <node pkg="tf" type="static_transform_publisher" name="heater4_tf" args="2.85 -2.205 0 1.57 0 0 world heater4/base_link 10"/>
+  <include file="$(find demo)/launch/robot_viz.xml">
+    <arg name="description" value="$(find xacro)/xacro.py $(find demo)/urdf/heater.urdf" />
+    <arg name="use_joint_state_publisher" value="true"/>
+    <arg name="gui" value="false" />  
+    <arg name="model_prefix" value="heater4" />
+  </include>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find demo)/demo1.rviz" respawn="true" />
+ </launch>
